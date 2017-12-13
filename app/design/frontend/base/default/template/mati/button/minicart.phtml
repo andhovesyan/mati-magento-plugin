@@ -1,0 +1,13 @@
+<?php if (Mage::getStoreConfig('payment/maticheckout/show_on_minicart')): ?>
+  <div class="mati-button" style="margin: 15px auto; min-width: unset"></div>
+  <script>
+    MATI_CHECKOUT_CONFIGS = {
+      "amount": <?= $this->getGrandTotal(); ?>,
+      "meta": {
+        "products": <?=json_encode($this->getProducts());?>,
+        "taxes": [],
+        "quoteId": String(<?= $this->getQuote()->getId(); ?>),
+      }
+    };
+  </script>
+<?php endif; ?>

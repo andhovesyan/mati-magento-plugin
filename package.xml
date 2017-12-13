@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Mati_Maticheckout</name>
+    <version>1.0.4</version>
+    <stability>stable</stability>
+    <license uri="http://mati.io/legal/merchant-terms/">Custom</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Mati merchant integration.</summary>
+    <description>Mati merchant integration.</description>
+    <notes>- Added a feature to check if extension is installed</notes>
+    <authors><author><name>Filip Victor</name><user>filipvictor</user><email>filip@mati.io</email></author></authors>
+    <date>2017-12-13</date>
+    <time>07:28:22</time>
+    <contents><target name="magecommunity"><dir name="Mati"><dir name="Maticheckout"><dir name="Block"><file name="Button.php" hash="b8d468a227390d413e5a177295f9a0be"/><file name="Checkout.php" hash="45efc6740fb9db25b164f313b6d7256e"/></dir><dir name="Helper"><file name="Data.php" hash="c9e4cd9e901bc46fab9b702e64fd75cd"/></dir><dir name="Model"><file name="Matipayment.php" hash="ef64faa59727b59f585f8ae12414c748"/><dir name="Method"><file name="Checkout.php" hash="45efc6740fb9db25b164f313b6d7256e"/><file name="Standard.php" hash="7152f7e21b07380765627ad03ae61ab1"/></dir><file name="Order.php" hash="4110c0c235b48e98925a34b05081f553"/><file name="Standard.php" hash="5105d20f1db8c236526e095f957b1055"/><file name="Transaction.php" hash="4110c0c235b48e98925a34b05081f553"/></dir><dir name="controllers"><file name="CartController.php" hash="cd9819a66fd7d9fcda0b68fbbef57691"/><file name="IndexController.php" hash="81b26e5d9cb07681abf193e30442ec8c"/><file name="OrdersController.php" hash="e0ac83fc5a84d8c5a61d70ac60824ab6"/></dir><dir name="etc"><file name="config.xml" hash="d11e036db30bff743e08320e2c74f17a"/><file name="system.xml" hash="61b5b9dbdf4c2cd55922cf302cb153d2"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Mati_Maticheckout.xml" hash="bda906ce3c3430f11b8ceb73a4e7512c"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="mati_checkout.xml" hash="78196c1be36d7351715ea2119c5bf7c4"/></dir><dir name="template"><dir name="mati"><dir name="button"><file name="cart.phtml" hash="511cbe7ec3553dfa3889f982ef3fe5fd"/><file name="minicart.phtml" hash="a37ba9bccbd88f08a6ff617b2227f686"/><file name="onepage.phtml" hash="f8ce7016e9e6f580c77be7b7f25242e9"/><file name="single_product.phtml" hash="180bd93ed7bf28d8778696c4d48450d8"/></dir><file name="mati_button.phtml" hash="077ff9642b9ae0f9c403b947bc8060b5"/><file name="mati_footer_js.phtml" hash="0fb9445c87b05d5c50112ce039da0b91"/><file name="mati_header_js.phtml" hash="52de5c63f697d6241f84f57dba2a9847"/><file name="mati_success_js.phtml" hash="b9dfde8e461fbe9efa38310bfb92c171"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>7.2.0</max></php></required></dependencies>
+</package>

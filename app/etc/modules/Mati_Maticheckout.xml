@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mati_Maticheckout>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Mati_Maticheckout>
+    </modules>
+</config>

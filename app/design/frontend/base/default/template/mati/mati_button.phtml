@@ -1,0 +1,18 @@
+<div class="mati-button" style="width: 100%"></div>
+<script>
+  var MATI_INIT_CONFIGS = {
+    "token": "<?= $this->getToken() ?>",
+  };
+  var MATI_CHECKOUT_CONFIGS = {
+    "amount": <?=$this->getQuote()->getGrandTotal();?>,
+    "meta": {
+      "products": <?=json_encode($this->getProducts());?>,
+      "taxes": [{
+        "name": "BAD City Tax",
+        "type": "city",
+        "rate": 0.165,
+      }],
+      "quoteId": String(<?= $this->getQuote()->getId(); ?>),
+    }
+  };
+</script>

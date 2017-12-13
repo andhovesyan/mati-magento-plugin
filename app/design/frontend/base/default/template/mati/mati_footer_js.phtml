@@ -1,0 +1,71 @@
+<!-- <script type="text/javascript" id="matiscript" src="https://sdk.mati.io/mati-sdk.min.js"></script> -->
+<script type="text/javascript" id="matiscript" src="https://dev.mati.io/sdk/v1/mati-sdk.js"></script>
+<!-- <script id="matiscript" src="http://localhost:8000/dist/mati-sdk.js"></script> -->
+<?php
+  $cart = Mage::getModel('checkout/cart')->getQuote();
+  $items = array();
+  foreach ($cart->getAllItems() as $item) {
+    $items[] = array(
+      'product' => $item->product->getId(),
+      'quantity' => $item->getBuyRequest()->getQty(),
+      'options' => $item->getBuyRequest()->getOptions(),
+      'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+    );
+  }
+?>
+<script>
+
+  function matiGetCompletedOrder() {
+    jQuery.get(MATI_ROOT_PATH + 'orders/getcompleted', function (completed) {
+      if (!Boolean(parseInt(completed))) {
+        setTimeout(matiGetCompletedOrder, 3000);
+      } else {
+        window.location.replace("/checkout/onepage/success/");
+      }
+    });
+  }
+
+  MatiCurrentChart.items = JSON.parse('<?= json_encode($items) ?>');
+
+  Mati.init(MATI_INIT_CONFIGS);
+  Mati.checkout(MATI_CHECKOUT_CONFIGS);
+  Mati.on('mati:success', function() {
+    matiGetCompletedOrder();
+  });
+  Mati.on('mati:failed', function() {
+    MatiCurrentChart.recover();
+  });
+  Mati.on('mati:cacelled', function() {
+    MatiCurrentChart.recover();
+  });
+  Mati.on('mati:processed', function() {
+    matiGetCompletedOrder();
+  });
+
+<?php if (Mage::getStoreConfig('payment/maticheckout/show_on_product_page')): ?>
+  jQuery('body').on('click', '#matiSingleProductButtonOverlay', function (e) {
+    var $form = jQuery('#product_addtocart_form');
+    var data = MatiHelpers.objectifyForm($form.serializeArray());
+    jQuery.post(MATI_ROOT_PATH + 'cart/addSingleProduct', data)
+      .done(function (res) {
+        MatiCurrentChart.modified = true;
+        MatiCurrentChart.save();
+        jQuery('#matiSingleProductButtonOverlay').remove();
+        res = JSON.parse(res);
+        Mati.checkout({
+          amount: res.product.total_price,
+          meta: {
+            products: [res.product],
+            taxes: [],
+            quoteId: res.quoteId,
+          }
+        });
+        jQuery('#matiSingleProductButton .mati-button').trigger('click');
+      })
+      .fail(function (http) {
+        var error = JSON.parse(http.responseText).error;
+        console.error(error);
+      });
+  });
+</script>
+<?php endif; ?>

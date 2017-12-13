@@ -1,0 +1,11 @@
+<div class="mati-button responsive" style="margin: 30px 0;"></div>
+<script>
+  MATI_CHECKOUT_CONFIGS = {
+    "amount": <?= $this->getGrandTotal(); ?>,
+    "meta": {
+      "products": <?= json_encode($this->getProducts()) ?>,
+      "taxes": [],
+      "quoteId": String(<?= $this->getQuote()->getId(); ?>),
+    }
+  };
+</script>

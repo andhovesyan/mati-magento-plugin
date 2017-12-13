@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mati_Maticheckout>
+      <version>0.0.1</version>
+    </Mati_Maticheckout>
+  </modules>
+  <frontend>
+    <routers>
+      <maticheckout>
+        <use>standard</use>
+        <args>
+          <module>Mati_Maticheckout</module>
+          <frontName>mati_checkout</frontName>
+        </args>
+      </maticheckout>
+    </routers>
+    <layout>
+      <updates>
+        <module>
+          <file>mati_checkout.xml</file>
+        </module>
+      </updates>
+    </layout>
+  </frontend>
+  <global>
+    <helpers>
+      <maticheckout>
+        <class>Mati_Maticheckout_Helper</class>
+      </maticheckout>
+    </helpers>
+    <blocks>
+      <mati_maticheckout>
+        <class>Mati_Maticheckout_Block</class>
+      </mati_maticheckout>
+    </blocks>
+  </global>
+  <default>
+    <payment>
+      <mati_face>
+        <model>Mati_Maticheckout_Model_Method_Standard</model>
+        <active>1</active>
+        <order_status>pending</order_status>
+        <title>Mati face</title>
+        <payment_action>sale</payment_action>
+        <merchant_id>Insert merchant id</merchant_id>
+        <show_on_cart>1</show_on_cart>
+        <show_on_minicart>0</show_on_minicart>
+        <show_on_product_page>0</show_on_product_page>
+        <allowspecific>US</allowspecific>
+        <specificcountry>US</specificcountry>
+        <sort_order>1</sort_order>
+      </mati_face>
+    </payment>
+  </default>
+</config>

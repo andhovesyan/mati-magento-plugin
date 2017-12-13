@@ -1,0 +1,19 @@
+<?php if (Mage::getStoreConfig('payment/maticheckout/show_on_product_page')): ?>
+  <div id="matiSingleProductButton" style="margin: 10px 0; position: relative; float: left">
+    <div class="mati-button responsive"></div>
+    <div
+      id="matiSingleProductButtonOverlay"
+      style="position: absolute; background: transparent; width: 100%; height: 100%; top: 0; cursor: pointer;"
+    ></div>
+  </div>
+  <script>
+    MATI_CHECKOUT_CONFIGS = {
+      "amount": <?= $this->getGrandTotal(); ?>,
+      "meta": {
+        "products": <?=json_encode($this->getProducts());?>,
+        "taxes": [],
+        "quoteId": String(<?= $this->getQuote()->getId(); ?>),
+      }
+    };
+  </script>
+<?php endif; ?>

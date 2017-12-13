@@ -1,0 +1,75 @@
+<script>
+  var MATI_INIT_CONFIGS = {
+    "token": "<?=Mage::getStoreConfig('payment/maticheckout/merchant_token')?>",
+  };
+  var MATI_CHECKOUT_CONFIGS = {};
+  var MATI_ROOT_PATH = "<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)?>mati_checkout/";
+
+  var MatiHelpers = {
+    createCookie: function (name,value,days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    },
+
+    readCookie: function (name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    },
+
+    eraseCookie: function(name) {
+      this.createCookie(name,"",-1);
+    },
+
+    objectifyForm: function(formArray) {
+      var returnArray = {};
+      for (var i = 0; i < formArray.length; i++){
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+      }
+      return returnArray;
+    },
+  };
+
+  var MatiCurrentChart = {
+    items: [],
+    modified: false,
+    save: function () {
+      if (!this.modified) {
+        return;
+      }
+      MatiHelpers.createCookie('current_cart', JSON.stringify(this.items));
+      return this;
+    },
+    load: function () {
+      var items = MatiHelpers.readCookie('current_cart');
+      if (items) {
+        this.items = JSON.parse(items);
+      }
+      MatiHelpers.eraseCookie('current_cart');
+      return this;
+    },
+    recover: function (success, error) {
+      if (!success) {
+        success = function () {}
+      }
+      if (!error) {
+        error = function () {}
+      }
+      jQuery.post(MATI_ROOT_PATH + 'cart/recover', {
+        items: this.items,
+      })
+      .done(success)
+      .fail(error);
+    },
+  };
+</script>
